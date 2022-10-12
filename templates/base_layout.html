@@ -10,18 +10,36 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
+  <script src="{% static 'js/base.js' %}"></script>
 </head>
 <body>
   <div class="container-fluid wrap-container">
     <div class="mb-3 header">
-      <h3>Funny Movies</h3>
+      <a href="/" class="app-title"><h3>Funny Movies</h3></a>
       {% if request.user.email %}
         {% include 'user_info.html' %}
       {% else %}
         {% include 'login_form.html' %}
       {% endif %}
     </div>
+    {% block messages %}
+        <ul class="messages" id="messages-list">
+        {% if messages %}
+            {% for message in messages %}
+            <li>
+                {% if message.tags %}
+                     <div class="alert alert-{{ message.tags }} msg fade show" role="alert">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-info msg fade show" role="alert">{{ message }}</div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    {% endblock %}
     {% block content %}{% endblock %}
   </div>
 </body>
 </html>
+
+

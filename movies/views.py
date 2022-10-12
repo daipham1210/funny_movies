@@ -2,6 +2,7 @@ from pydoc import describe
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from movies.models import Movie
+from django.contrib import messages
 
 from movies.serializers import MovieSerializer
 from django.http import HttpResponseRedirect
@@ -21,7 +22,10 @@ def share_movie(request):
             user=request.user.id,
         )
         serializer = MovieSerializer(data=data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
+            messages.add_message(request, messages.INFO, "Shared video successfully")
             return HttpResponseRedirect("/")
+        else:
+            messages.add_message(request, messages.ERROR, "Something error.")
     return render(request, "share_form.html")
