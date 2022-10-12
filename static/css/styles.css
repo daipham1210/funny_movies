@@ -1,0 +1,19 @@
+.wrap-container {
+  max-width: 90%;
+  padding-top: 15px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid gray;
+}
+
+.login-form input {
+  margin: 0 10px;
+  width: 200px !important;
+}
+.login-form button {
+  width: 200px !important;
+}
