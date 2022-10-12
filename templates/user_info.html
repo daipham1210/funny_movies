@@ -1,6 +1,8 @@
 {% load static %}
-<div>
-  {{request.user.email}}
-  <button type="button" class="btn btn-primary">Share a movie</button>
+<div class="user-info">
+  <span>{{request.user.email}}</span>
+  <a href="{% url 'share_movie' %}">
+    <button type="button" class="btn btn-primary">Share a movie</button>
+  </a>
   <a href="{% url 'logout' %}" class="">Logout</a>
 </div>

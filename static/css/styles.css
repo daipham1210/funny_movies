@@ -17,3 +17,31 @@
 .login-form button {
   width: 200px !important;
 }
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info span, a {
+  padding-right: 10px;
+}
+
+.list-movies {
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+}
+.list-movies .movie-item {
+  display: flex;
+  padding-bottom: 20px;
+}
+.list-movies .movie-item .movie-info {
+  padding-left: 15px;
+}
+
+
+#share-form {
+  width: 500px;
+  margin: auto;
+}

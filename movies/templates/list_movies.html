@@ -1,0 +1,22 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+<div class="list-movies">
+  {% for movie in list_movies %}
+    <div class="movie-item">
+      {% if movie.iframe %}
+        {{ movie.iframe |safe }}
+      {% else %}
+        <img src="https://via.placeholder.com/560x315" />
+      {% endif %}
+      <div class="movie-info">
+        <h3>{{ movie.title }}</h3>
+        Shared by: <strong>{{ movie.shared_by_email }}</strong>
+        <p>upvote: 0 downvote: 0 </p>
+        <p>Description: </p>
+        <p>{{ movie.description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

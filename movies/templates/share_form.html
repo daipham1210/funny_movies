@@ -1,0 +1,22 @@
+{% extends "base_layout.html" %}
+
+{% block content %}
+  <p>Share a Youtube movie</p>
+  
+  <form id="share-form" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="url" class="form-label">Youtube URL</label>
+      <input type="text" class="form-control" id="url" name="url" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Title</label>
+      <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Description</label>
+      <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Share</button>
+  </form>
+{% endblock %}
