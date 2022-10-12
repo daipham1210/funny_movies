@@ -14,24 +14,21 @@ class LoginOrSignup(LoginView):
     def _login(self, request, user):
         login(request, user)
         messages.add_message(request, messages.INFO, '{0} logged in.'.format(user.email))
-        return JsonResponse(dict(success=True), safe=False, status=200)
+        return JsonResponse(dict(success=True, user=dict(email=user.email)), safe=False, status=200)
+    
+    def _response_invalid_email_or_password(self, request):
+        msg = "Invalid email or password"
+        messages.add_message(request, messages.ERROR, msg)
+        return JsonResponse(dict(success=False, message=msg), safe=False, status=200)
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
         password = request.POST.get('password')
         if email and password:
             user = authenticate(email=email, password=password)
-            if user and user.is_active:
+            if user:
                 return self._login(request, user)
-            else:
-                # Tries to create a new user and add them to the database
-                try:
-                    user = UserModel.objects.create_user(email, password)
-                    if user:
-                        return self._login(request, user)
-                except:
-                    return JsonResponse(dict(success=False, message="Internal Server Error"), safe=False, status=401)
-        return JsonResponse(dict(success=False, message="Invalid email or password"), safe=False, status=200)
+            return self._response_invalid_email_or_password(request)
 
 class Logout(LogoutView):
     http_method_names = ['get']
