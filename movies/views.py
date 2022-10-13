@@ -1,16 +1,24 @@
-from pydoc import describe
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from movies.models import Movie
 from django.contrib import messages
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from movies.serializers import MovieSerializer
 from django.http import HttpResponseRedirect
 
 def index(request):
-    list_movies_qs = Movie.objects.all().select_related('user').only('user__email', 'url', 'title', 'description').order_by('-id')[:20]
-    list_movies = MovieSerializer(list_movies_qs, many=True).data
-    return render(request, "list_movies.html", dict(list_movies=list_movies))
+    list_movies_qs = Movie.objects.all().select_related('user').only('user__email', 'url', 'title', 'description').order_by('-id')
+    paginator = Paginator(list_movies_qs, 5)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        # if page is not an integer, deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # if the page is out of range, deliver the last page
+        page_obj = paginator.page(paginator.num_pages)
+    return render(request, "list_movies.html", dict(page_obj=page_obj))
 
 @login_required
 def share_movie(request):

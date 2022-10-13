@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="list-movies">
-  {% for movie in list_movies %}
+  {% for movie in page_obj %}
     <div class="movie-item">
       {% if movie.iframe %}
         {{ movie.iframe |safe }}
@@ -11,12 +11,28 @@
       {% endif %}
       <div class="movie-info">
         <h3>{{ movie.title }}</h3>
-        Shared by: <strong>{{ movie.shared_by_email }}</strong>
-        <p>upvote: 0 downvote: 0 </p>
-        <p>Description: </p>
+        <p>Shared by: <strong>{{ movie.shared_by }}</strong></p>
+        <span>Description: </span>
         <p>{{ movie.description }}</p>
       </div>
     </div>
   {% endfor %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+  
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+  
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 {% endblock %}

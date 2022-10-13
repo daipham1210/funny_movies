@@ -1,4 +1,5 @@
 from django.db import models
+from movies.services import MovieService
 from user.models import User
 
 class Movie(models.Model):
@@ -11,3 +12,11 @@ class Movie(models.Model):
 
     class Meta:
         db_table = "movies"
+
+    @property
+    def iframe(self):
+        return MovieService.generate_iframe_ytb(self.url)
+
+    @property
+    def shared_by(self):
+        return self.user.email
