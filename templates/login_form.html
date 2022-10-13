@@ -19,8 +19,17 @@
       data.append('password', $('#password').val());
       axios.post('{% url "login" %}', data)
       .then(function (response) {
-        if (response.status === 200) {
+        if (response.data && response.data.success) {
           window.location.reload();
+        }
+      })
+      .catch(function(e) {
+        var response = e.response;
+        if(response && response.status == 401) {
+          // show flash message
+          const messages = document.getElementById("messages-list");
+          messages.innerHTML += '<div class="alert alert-error msg fade show" role="alert">' + response.data.message + '</div>';
+          fade_alerts();
         }
       })
   })
