@@ -15,10 +15,10 @@ class MovieServiceTestCase(TestCase):
             width: 500
             height: 300
         Output:
-            '<iframe width="500" height="300" src="//www.youtube.com/embed/SA2iWivDJiE" frameborder="0" allowfullscreen></iframe>'
+            '<iframe width="500" height="300" src="https://www.youtube.com/embed/SA2iWivDJiE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         """
         url = "http://youtu.be/SA2iWivDJiE"
-        expected_iframe = '<iframe width="500" height="300" src="//www.youtube.com/embed/SA2iWivDJiE" frameborder="0" allowfullscreen></iframe>'
+        expected_iframe = '<iframe width="500" height="300" src="https://www.youtube.com/embed/SA2iWivDJiE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         self.assertEqual(MovieService.generate_iframe_ytb(url, width=500, height=300), expected_iframe)
         
         url = "http://www.youtube.com/watch?v=SA2iWivDJiE&feature=feedu"

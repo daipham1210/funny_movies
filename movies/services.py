@@ -30,10 +30,12 @@ class MovieService:
     def generate_iframe_ytb(cls, url, **kwargs):
         """
         Genenrate iframe video to show in HTML from Youtube URL
+        return:
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/GrnpwSa2QN4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         """
         width = kwargs.get("width", 560)
         height = kwargs.get("height", 315)
         video_id = cls.get_video_id(url)
         if video_id:
-            return f'<iframe width="{width}" height="{height}" src="//www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>'
+            return f'<iframe width="{width}" height="{height}" src="https://www.youtube.com/embed/{video_id}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         return ""
