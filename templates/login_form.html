@@ -15,7 +15,7 @@
     submit.click(function(e) {
       var data = new FormData();
       data.append('csrfmiddlewaretoken', csrfmiddlewaretoken.val());
-      data.append('email', $('#email').val());
+      data.append('username', $('#email').val());
       data.append('password', $('#password').val());
       axios.post('{% url "login" %}', data)
       .then(function (response) {
@@ -26,10 +26,7 @@
       .catch(function(e) {
         var response = e.response;
         if(response && response.status == 401) {
-          // show flash message
-          const messages = document.getElementById("messages-list");
-          messages.innerHTML += '<div class="alert alert-error msg fade show" role="alert">' + response.data.message + '</div>';
-          fade_alerts();
+          alertMsg(response.data.message);
         }
       })
   })

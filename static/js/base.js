@@ -5,8 +5,14 @@ function logFormData(data) {
   }
 }
 
+function alertMsg(msg) {
+  const messages = document.getElementById("messages-list");
+  messages.innerHTML += '<div class="alert alert-error msg fade show" role="alert">' + msg + '</div>';
+  fadeAlerts();
+}
+
 // fade out message alerts
-function fade_alerts() {
+function fadeAlerts() {
   alerts = document.getElementsByClassName("alert msg");
   var i = alerts.length;
   for (let elem of alerts) {
@@ -20,5 +26,5 @@ function fade_alerts() {
 
 // call fade out after DOMContentLoaded
 window.addEventListener('DOMContentLoaded', (event) => {
-  fade_alerts();
+  fadeAlerts();
 });
