@@ -1,11 +1,17 @@
 from django.shortcuts import render
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.contrib.auth.decorators import login_required
 from movies.models import Movie
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from movies.serializers import MovieSerializer
 from django.http import HttpResponseRedirect
+from django.views.decorators.cache import cache_page
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+@cache_page(CACHE_TTL)
 def index(request):
     list_movies_qs = Movie.objects.all().select_related('user').only('user__email', 'url', 'title', 'description').order_by('-id')
     paginator = Paginator(list_movies_qs, 5)
