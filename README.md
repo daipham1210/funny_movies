@@ -10,10 +10,7 @@ Live demo: https://funny-movies-remi.herokuapp.com/
 python3 -m venv .venv
 source .venv/bin/activate
 ``` 
-- Generate SECRET_KEY
-```
-echo "SECRET_KEY=$(openssl rand -base64 32)" > .env
-```
+- create .env from .env.sample
 - Instail libruary:
 ```
 pip install -r requirements.txt
